@@ -1,0 +1,27 @@
+
+
+EMG processing ref:
+Chalard A, Belle M, Montané E, Marque P, Amarantini D, Gasq D. Impact of the EMG normalization method on muscle activation and the antagonist-agonist co-contraction index during active elbow extension: Practical implications for post-stroke subjects. Journal of Electromyography and Kinesiology. 2020;51:102403. doi:10.1016/j.jelekin.2020.102403
+	- ref recorded EMG data at 1 kHz
+	- preprocessing: raw emg band pass filtered 10-400 Hz, full wave rectified, smoothed at 9 Hz to create linear envelope
+		- all filters: 4th order zero-lag Buttworth
+	- kinematic data lp filtered at 6 Hz
+	- onset of movement: threshold of 0.01 deg/s - elbow angular velocity
+	- isometric MVC = RMS value of linear envelope over 2-s window (recorded 5 s contraction)
+
+
+- our data (c2799tdvg) 
+	- recorded at 2.5 kHz
+	- same filtering to compute envelope
+	- 1 s window (RMS) for isometric MVC
+
+
+MVC analysis: mvc.mlapp
+	- reads in Brainvision Recorder (.vhdr) file
+	- displays bicep & tricep hp filtered data and emg linear envelope
+	- adds (draggable) patches at the mvc events
+	- saves the rms value in the mvc window to a file
+		- file: .../analysis/emg/<subject>/<session>/<muscle>_mvcs.txt
+
+	todo:
+		- add deletion and addition of mvc patches
