@@ -31,6 +31,9 @@ for m_cnt = 1:length(muscle_names)
 			% write the file
 			write_info(save_file, app.mvcs.(muscle))
 		end
+	else
+		% write the file
+		write_info(save_file, app.mvcs.(muscle))
 	end
 end % each muscle
 
