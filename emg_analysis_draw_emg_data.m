@@ -1,6 +1,16 @@
 function emg_analysis_draw_emg_data(app)
 % part of the emg_analysis app, draw or update the data in the emg axes
-h_lines = findobj(app.MVCAnalysisUIFigure, '-regexp', 'Tag', 'line_.*');
+
+cocon_flag = false;
+
+if isprop(app, 'MVCAnalysisUIFigure')
+	h_lines = findobj(app.MVCAnalysisUIFigure, '-regexp', 'Tag', 'line_.*');
+elseif isprop(app, 'CoConUIFigure')
+	h_lines = findobj(app.CoConUIFigure, '-regexp', 'Tag', 'line_.*');
+	cocon_flag = true;
+else
+	return
+end
 if ~isempty(h_lines)
 	delete(h_lines)
 end
@@ -19,6 +29,18 @@ line(app.UIAxes_bicep, app.emg_data.times/1000,app.emg_data.linear_envelope(bice
 line(app.UIAxes_tricep, app.emg_data.times/1000,app.emg_data.linear_envelope(tricep_ind,:), ...
 	'Tag', 'line_tricep_envelope', 'Color', [0 0 0], 'LineWidth', 2)
 
+if cocon_flag == true
+	% draw co-contraction index data
+	line(app.UIAxes_cci, app.emg_data.times/1000, app.cci_data, ...
+		'Tag', 'line_cci_data', 'Color', [0 0 0], 'LineWidth', 2)
+	% adjust ylims of bicep & tricep axes
+	ymin = min(app.emg_data.linear_envelope(bicep_ind,:));
+	ymax = max(app.emg_data.linear_envelope(bicep_ind,:));
+	app.UIAxes_bicep.YLim = [ymin ymax];
+	ymin = min(app.emg_data.linear_envelope(tricep_ind,:));
+	ymax = max(app.emg_data.linear_envelope(tricep_ind,:));
+	app.UIAxes_tricep.YLim = [ymin ymax];
+end
 
 return
 end

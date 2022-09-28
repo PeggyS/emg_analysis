@@ -25,3 +25,14 @@ MVC analysis: mvc.mlapp
 
 	todo:
 		- add deletion and addition of mvc patches
+
+Co-contraction analysis: cocontraction.mlapp
+	- reads in Brainvision Recorder (.vhdr) file
+	- displays bicep & tricep hp filtered data and emg linear envelope
+	- gets mvc data
+	- normalizes linear envelope by (mean or max) of mvc value
+
+	- co-contraction index using Falconer and Winter, 1985 formula:
+		CCI =  2 * (emg flexors) /( emg flexors + emg extensors) * 100%
+
+
