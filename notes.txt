@@ -6,7 +6,7 @@ Chalard A, Belle M, Montané E, Marque P, Amarantini D, Gasq D. Impact of the EM
 	- preprocessing: raw emg band pass filtered 10-400 Hz, full wave rectified, smoothed at 9 Hz to create linear envelope
 		- all filters: 4th order zero-lag Buttworth
 	- kinematic data lp filtered at 6 Hz
-	- onset of movement: threshold of 0.01 deg/s - elbow angular velocity
+	- onset and offset of movement: threshold of 0.01 deg/s - elbow angular velocity
 	- isometric MVC = RMS value of linear envelope over 2-s window (recorded 5 s contraction)
 
 
