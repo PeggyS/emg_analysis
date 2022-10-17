@@ -32,7 +32,14 @@ Co-contraction analysis: cocontraction.mlapp
 	- gets mvc data
 	- normalizes linear envelope by (mean or max) of mvc value
 
-	- co-contraction index using Falconer and Winter, 1985 formula:
-		CCI =  2 * (emg flexors) /( emg flexors + emg extensors) * 100%
+	- Elbow angle data from Vicon:
+		- reconstruct & label trial in Vicon Nexus
+		- run static BodyLanguage on static trial
+		- run dynamic BodyLanguage Model on movement trial
+		- export ascii
+			- Model outputs only - Selected - make sure to select the Angle outputs in the Model Output list
+		- copy .csv file to: .../myopro_merit/data/vicon-kinematics/<subject>/<session>/
+		- file is read into matlab with 'read_vicon_model_trajectories_csv.m'
+		
 
 

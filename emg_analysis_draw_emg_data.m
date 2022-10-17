@@ -29,20 +29,20 @@ line(app.UIAxes_bicep, app.emg_data.time, app.emg_data.linear_envelope(bicep_ind
 line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.linear_envelope(tricep_ind,:), ...
 	'Tag', 'line_tricep_envelope', 'Color', [0 0 0], 'LineWidth', 2)
 
-if cocon_flag == true
-	% draw co-contraction index data
-	line(app.UIAxes_cci, app.emg_data.time, app.cci_data, ...
-		'Tag', 'line_cci_data', 'Color', [0 0 0], 'LineWidth', 2)
-	% adjust ylims of bicep & tricep axes
-	ymin = min(app.emg_data.linear_envelope(bicep_ind,:));
-	ymax = max(app.emg_data.linear_envelope(bicep_ind,:));
-	app.UIAxes_bicep.YLim = [ymin ymax];
-	ymin = min(app.emg_data.linear_envelope(tricep_ind,:));
-	ymax = max(app.emg_data.linear_envelope(tricep_ind,:));
-	app.UIAxes_tricep.YLim = [ymin ymax];
-	% ylims of cci
-	app.UIAxes_cci.YLim = [0 200];
-end
+% if cocon_flag == true
+% 	% draw co-contraction index data
+% 	line(app.UIAxes_cci, app.emg_data.time, app.cci_data, ...
+% 		'Tag', 'line_cci_data', 'Color', [0 0 0], 'LineWidth', 2)
+% 	% adjust ylims of bicep & tricep axes
+% 	ymin = min(app.emg_data.linear_envelope(bicep_ind,:));
+% 	ymax = max(app.emg_data.linear_envelope(bicep_ind,:));
+% 	app.UIAxes_bicep.YLim = [ymin ymax];
+% 	ymin = min(app.emg_data.linear_envelope(tricep_ind,:));
+% 	ymax = max(app.emg_data.linear_envelope(tricep_ind,:));
+% 	app.UIAxes_tricep.YLim = [ymin ymax];
+% 	% ylims of cci
+% 	app.UIAxes_cci.YLim = [0 200];
+% end
 
 
 return
