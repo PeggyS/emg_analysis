@@ -44,7 +44,7 @@ if cocon_flag == true
 	ymax = max(app.emg_data.linear_envelope(tricep_ind,:));
 	app.UIAxes_tricep.YLim = [ymin ymax];
 	% ylims of cci
-% 	app.UIAxes_cci.YLim = [0 200];
+ 	app.UIAxes_cci.YLim = [0 200];
 end
 
 
