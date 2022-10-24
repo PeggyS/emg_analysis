@@ -1,7 +1,7 @@
 function emg_analysis_draw_mvc_patches(app)
 % for mvc app, draw draggable patches for defining the mvc range
 
-h_patches = findobj(app.MVCAnalysisUIFigure, '-regexp', 'Tag', 'patch_.*');
+h_patches = findobj(app.MVCAnalysisUIFigure, '-regexp', 'Tag', 'patch_.*mvc');
 if ~isempty(h_patches)
 	delete(h_patches)
 end
