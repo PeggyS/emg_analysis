@@ -26,9 +26,12 @@ h_patch = patch(h_axes, 'XData', [x_min x_min x_max x_max], ...
 	'FaceAlpha', 0.25, ...
 	'Tag', ['patch_' lower(h_axes.YLabel.String) '_' type]);
 
-datatip(h_patch)
-dt_row = dataTipTextRow('value',22)
-h_patch.DataTipTemplate.DataTipRows(end+1) = dt_row;
+% data tip to show the mean emg value in the patch - FIXME
+% datatip(h_patch)
+% % array the same length as the vertices of the patch
+% t1 = repelem([2],1,size(h_patch.Vertices,1));
+% dt_row = dataTipTextRow('mean:', t1);
+% h_patch.DataTipTemplate.DataTipRows(end+1) = dt_row;
 
 % make it draggable
 draggable(h_patch, 'h');
