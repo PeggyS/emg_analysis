@@ -36,6 +36,10 @@ Co-contraction analysis: cocontraction.mlapp
 	- gets mvc data
 	- normalizes linear envelope by resting emg and mean of mvc values. Compute emg envelope same as mvc, subtract resting emg level, then scale by mean mvc minus resting emg * 100. Envelope value should be between 0 and 100, but I've seen some values over 100 - need to make sure we are getting good mvc data.
 
+	- todo:
+		- read in previous analysis cocontraction_info.txt
+		- add provision in compute_cocontraction_from_patches.m for bend-extend experiments (see FIXME)
+
 	- Elbow angle data from Vicon:
 		- reconstruct & label trial in Vicon Nexus
 		- run static BodyLanguage on static trial

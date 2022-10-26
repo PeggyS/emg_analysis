@@ -29,10 +29,9 @@ vertices = [vertices;
 % end the patch at end time and y=0
 vertices = [vertices; end_t, 0];
 color = [0 0 0.9]; % bicep is blue
-h_patch = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, 'Tag', ['bicep_emg_patch' num2str(event_num)] );
-h_patch.EdgeColor = 'none';
-h_patch.FaceAlpha = 0.2;
-app.coactivation_patches(end+1) = h_patch;
+h_bicep_patch = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, 'Tag', ['bicep_emg_patch' num2str(event_num)] );
+h_bicep_patch.EdgeColor = 'none';
+h_bicep_patch.FaceAlpha = 0.2;
 
 
 % tricep patch
@@ -54,11 +53,19 @@ vertices = [vertices;
 % end the patch at end time and y=0
 vertices = [vertices; end_t, 0];
 color = [0.9 0 0]; % tricep is red
-h_patch = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, 'Tag', ['tricep_emg_patch' num2str(event_num)] );
-h_patch.EdgeColor = 'none';
-h_patch.FaceAlpha = 0.2;
-app.coactivation_patches(end+1) = h_patch;
+h_tricep_patch = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, 'Tag', ['tricep_emg_patch' num2str(event_num)] );
+h_tricep_patch.EdgeColor = 'none';
+h_tricep_patch.FaceAlpha = 0.2;
 
+% add the patches to the coactivation_patches array
+if isfield(app.coactivation_patches, 'bicep') % append to the struct array
+	app.coactivation_patches(end+1).bicep = h_bicep_patch;
+	app.coactivation_patches(end).tricep = h_tricep_patch;
+else
+	% create the stuct
+	app.coactivation_patches.bicep = h_bicep_patch;
+	app.coactivation_patches.tricep = h_tricep_patch;
+end
 
 return
 end
