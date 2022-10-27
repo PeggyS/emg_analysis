@@ -35,6 +35,10 @@ Co-contraction analysis: cocontraction.mlapp
 	- displays bicep & tricep hp filtered data and emg linear envelope
 	- gets mvc data
 	- normalizes linear envelope by resting emg and mean of mvc values. Compute emg envelope same as mvc, subtract resting emg level, then scale by mean mvc minus resting emg * 100. Envelope value should be between 0 and 100, but I've seen some values over 100 - need to make sure we are getting good mvc data.
+	- Export info: 
+		- saved in .../myopro merit/analysis/emg/<subject>/<session>/<eeg file prefix>_<exp type (bend|extend)>_cocontraction_info.txt
+		- contains info about each movement and auc for the 2 muscles and ratio between the 2
+
 
 	- todo:
 		- read in previous analysis cocontraction_info.txt
@@ -47,6 +51,7 @@ Co-contraction analysis: cocontraction.mlapp
 		- export ascii
 			- Model outputs only - Selected - make sure to select the Angle outputs in the Model Output list
 		- copy .csv file to: .../myopro_merit/data/vicon-kinematics/<subject>/<session>/
+		- sync using GoodySync, vicon myopro merit job
 		- file is read into matlab with 'read_vicon_model_trajectories_csv.m'
 
 

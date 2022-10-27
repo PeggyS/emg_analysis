@@ -16,10 +16,22 @@ analysis_date = app.AnalysisdateEditField.Value;
 app.cocontraction_data.analysis_by = analysis_by;
 app.cocontraction_data.analysis_date = analysis_date;
 
+
+% get experiment type
+if app.BendOnlyButton.Value == 1
+	type = 'bend';
+elseif app.ExtendOnlyButton.Value == 1
+	type = 'extend';
+elseif app.BendExtendButton == 1
+	type = 'bend_extend';
+else
+	error('save_cocontraction_info.m - did not find experiment type')
+end
+
 % file name
 [~,fname,~] = fileparts(app.FileNameLabel.Text);
 
-save_file = fullfile(save_path,  [fname '_cocontraction_info.txt']);
+save_file = fullfile(save_path,  [fname '_' type '_cocontraction_info.txt']);
 
 if exist(save_file, 'file') == 2
 	selected_option = uiconfirm(app.CoConUIFigure, [save_file 'already exists. Do you want to overwrite it?'], ...
