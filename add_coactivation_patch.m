@@ -8,16 +8,13 @@ assert(~isempty(h_end_move_line), ['add_coactivation_patch.m  - could not find l
 
 end_t = h_end_move_line.XData(1);
 
-% y values for height of patch is the min of either bicep or tricep
-% envelope
+% add bicep patch
+% y values for height of patch is the bicep envelope
 
 h_bicep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_bicep');
 assert(~isempty(h_bicep), 'add_coactivation_patch.m - could not find line_cci_bicep')
-h_tricep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_tricep');
-assert(~isempty(h_tricep), 'add_coactivation_patch.m - could not find line_cci_tricep')
 
-y_val = min([h_bicep.YData; h_tricep.YData]);
-
+y_val = h_bicep.YData;
 % start defining vertices at the begin_t and y=0
 vertices = [begin_t, 0];
 
@@ -31,10 +28,44 @@ vertices = [vertices;
 
 % end the patch at end time and y=0
 vertices = [vertices; end_t, 0];
-color = [166 127 189]/255;
-app.coactivation_patches(end+1) = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, ...
-	'Tag', ['coact_patch' num2str(event_num)] );
+color = [0 0 0.9]; % bicep is blue
+h_bicep_patch = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, 'Tag', ['bicep_emg_patch' num2str(event_num)] );
+h_bicep_patch.EdgeColor = 'none';
+h_bicep_patch.FaceAlpha = 0.2;
 
+
+% tricep patch
+h_tricep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_tricep');
+assert(~isempty(h_tricep), 'add_coactivation_patch.m - could not find line_cci_tricep')
+
+y_val = h_tricep.YData;
+% start defining vertices at the begin_t and y=0
+vertices = [begin_t, 0];
+
+% add vertices at y_val of all time points between begin_t and end_t
+between_t_mask = h_tricep.XData >= begin_t & h_tricep.XData <= end_t;
+between_t = h_tricep.XData(between_t_mask);
+between_y = y_val(between_t_mask);
+
+vertices = [vertices;
+			between_t', between_y'];
+
+% end the patch at end time and y=0
+vertices = [vertices; end_t, 0];
+color = [0.9 0 0]; % tricep is red
+h_tricep_patch = patch(app.UIAxes_cci, vertices(:,1), vertices(:,2), color, 'Tag', ['tricep_emg_patch' num2str(event_num)] );
+h_tricep_patch.EdgeColor = 'none';
+h_tricep_patch.FaceAlpha = 0.2;
+
+% add the patches to the coactivation_patches array
+if isfield(app.coactivation_patches, 'bicep') % append to the struct array
+	app.coactivation_patches(end+1).bicep = h_bicep_patch;
+	app.coactivation_patches(end).tricep = h_tricep_patch;
+else
+	% create the stuct
+	app.coactivation_patches.bicep = h_bicep_patch;
+	app.coactivation_patches.tricep = h_tricep_patch;
+end
 
 return
 end

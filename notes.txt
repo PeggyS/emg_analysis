@@ -18,19 +18,31 @@ Chalard A, Belle M, Montané E, Marque P, Amarantini D, Gasq D. Impact of the EM
 
 MVC analysis: mvc.mlapp
 	- reads in Brainvision Recorder (.vhdr) file
-	- displays bicep & tricep hp filtered data and emg linear envelope
+	- displays bicep & tricep hp filtered data and emg linear envelope (10-400 Hz, rectified, 9 Hz lp filt, 4th order zero-lag butterworth)
 	- adds (draggable) patches at the mvc events
 	- saves the rms value in the mvc window to a file
 		- file: .../analysis/emg/<subject>/<session>/<muscle>_mvcs.txt
+	- extract the 'resting' emg level - use 1 s window with lowest mean value of linear envelope. Right-click near low emg area and the app will look in a 10 s window around that click for the lowest 1 s interval of emg.
+		- when Save MVCs button is clicked the resting emg files are also saved: .../analysis/emg/<subject>/<session>/<muscle>_resting_emg.txt
 
 	todo:
+		- add reading in and display of previous resting emg info
 		- add deletion and addition of mvc patches
+		
 
 Co-contraction analysis: cocontraction.mlapp
 	- reads in Brainvision Recorder (.vhdr) file
 	- displays bicep & tricep hp filtered data and emg linear envelope
 	- gets mvc data
-	- normalizes linear envelope by (mean or max) of mvc value
+	- normalizes linear envelope by resting emg and mean of mvc values. Compute emg envelope same as mvc, subtract resting emg level, then scale by mean mvc minus resting emg * 100. Envelope value should be between 0 and 100, but I've seen some values over 100 - need to make sure we are getting good mvc data.
+	- Export info: 
+		- saved in .../myopro merit/analysis/emg/<subject>/<session>/<eeg file prefix>_<exp type (bend|extend)>_cocontraction_info.txt
+		- contains info about each movement and auc for the 2 muscles and ratio between the 2
+
+
+	- todo:
+		- read in previous analysis cocontraction_info.txt
+		- add provision in compute_cocontraction_from_patches.m for bend-extend experiments (see FIXME)
 
 	- Elbow angle data from Vicon:
 		- reconstruct & label trial in Vicon Nexus
@@ -39,7 +51,8 @@ Co-contraction analysis: cocontraction.mlapp
 		- export ascii
 			- Model outputs only - Selected - make sure to select the Angle outputs in the Model Output list
 		- copy .csv file to: .../myopro_merit/data/vicon-kinematics/<subject>/<session>/
+		- sync using GoodySync, vicon myopro merit job
 		- file is read into matlab with 'read_vicon_model_trajectories_csv.m'
-		
+
 
 

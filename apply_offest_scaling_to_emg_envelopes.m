@@ -6,9 +6,9 @@ tricep_ind = find_channel_index(app.emg_data, 'tricep');
 
 % subtract resting_emg offset
 bicep_offset = mean(app.resting_emg.bicep.rms_value);
-app.emg_data.linear_envelope(bicep_ind,:) = app.emg_data.linear_envelope(bicep_ind,:) - offset;
+app.emg_data.linear_envelope(bicep_ind,:) = app.emg_data.linear_envelope(bicep_ind,:) - bicep_offset;
 tricep_offset = mean(app.resting_emg.tricep.rms_value);
-app.emg_data.linear_envelope(tricep_ind,:) = app.emg_data.linear_envelope(tricep_ind,:) - offset;
+app.emg_data.linear_envelope(tricep_ind,:) = app.emg_data.linear_envelope(tricep_ind,:) - tricep_offset;
 
 % scale by mean mvc (mvc = 100)
 scale  = mean(app.mvcs.bicep.rms_value) - bicep_offset;
