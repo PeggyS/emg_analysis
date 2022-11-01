@@ -22,10 +22,10 @@ else
 	% use each event in emg_data
 	for e_cnt = 1:length(app.emg_data.event)
 		switch lower(app.emg_data.event(e_cnt).type)
-			case 'bicepmvc'
+			case {'bicepmvc' 'bicep mvc'}
 				emg_analysis_add_patch(app.UIAxes_bicep, app.emg_data.event(e_cnt).time, ...
 					app.emg_data.event(e_cnt).time + 1.0)
-			case 'tricepmvc'
+			case {'tricepmvc' 'tricep mvc'}
 				emg_analysis_add_patch(app.UIAxes_tricep, app.emg_data.event(e_cnt).time, ...
 					app.emg_data.event(e_cnt).time + 1.0)
 		end
