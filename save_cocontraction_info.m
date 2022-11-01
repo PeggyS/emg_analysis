@@ -22,8 +22,12 @@ if app.BendOnlyButton.Value == 1
 	type = 'bend';
 elseif app.ExtendOnlyButton.Value == 1
 	type = 'extend';
-elseif app.BendExtendButton == 1
+elseif app.BendExtendButton.Value == 1
 	type = 'bend_extend';
+elseif app.IsometricBicepButton.Value == 1
+	type = 'isometric_bicep';
+elseif app.IsometricTricepButton.Value == 1
+	type = 'isometric_tricep';
 else
 	error('save_cocontraction_info.m - did not find experiment type')
 end
