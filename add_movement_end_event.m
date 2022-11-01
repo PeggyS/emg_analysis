@@ -1,6 +1,6 @@
 function add_movement_end_event(app, event_num)
 
-disp('add_movement_end_event')
+% disp('add_movement_end_event')
 
 evt_time = app.emg_data.event(event_num).time;
 % start looking 2 s after the event and find where elbow velocity is zero 
