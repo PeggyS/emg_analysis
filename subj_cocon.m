@@ -114,27 +114,94 @@ s2_extend.analysis_date = paramscell{9};
 % bend 
 figure
 h_ax = axes;
-plot(ones(1,20),c1_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
 hold on
-plot(2*ones(1,20),c2_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-plot(3*ones(1,20),s1_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-plot(4*ones(1,20),s2_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+plot(ones(1,length(c1_bend.antagonist_agonist_ratio)),c1_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m1 = mean(c1_bend.antagonist_agonist_ratio);
+sd1 = std(c1_bend.antagonist_agonist_ratio);
+line([0.75 1.25], [m1 m1])
+line([0.75 1.25], [m1+sd1 m1+sd1], 'Linestyle', '--')
+line([0.75 1.25], [m1-sd1 m1-sd1], 'Linestyle', '--')
+
+plot(2*ones(1,length(c2_bend.antagonist_agonist_ratio)),c2_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m2 = mean(c2_bend.antagonist_agonist_ratio);
+sd2 = std(c2_bend.antagonist_agonist_ratio);
+line([1.75 2.25], [m2 m2])
+line([1.75 2.25], [m2+sd2 m2+sd2], 'Linestyle', '--')
+line([1.75 2.25], [m2-sd2 m2-sd2], 'Linestyle', '--')
+
+plot(3*ones(1,length(s1_bend.antagonist_agonist_ratio)),s1_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m3 = mean(s1_bend.antagonist_agonist_ratio);
+sd3 = std(s1_bend.antagonist_agonist_ratio);
+line([2.75 3.25], [m3 m3])
+line([2.75 3.25], [m3+sd3 m3+sd3], 'Linestyle', '--')
+line([2.75 3.25], [m3-sd3 m3-sd3], 'Linestyle', '--')
+
+plot(4*ones(1,length(s2_bend.antagonist_agonist_ratio)),s2_bend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m4 = mean(s2_bend.antagonist_agonist_ratio);
+sd4 = std(s2_bend.antagonist_agonist_ratio);
+line([3.75 4.25], [m4 m4])
+line([3.75 4.25], [m4+sd4 m4+sd4], 'Linestyle', '--')
+line([3.75 4.25], [m4-sd4 m4-sd4], 'Linestyle', '--')
+
 title( 'Bend Isolated Movement')
 ylabel('Bicep AUC / Tricep AUC')
 xlabel('Subject')
 h_ax.XTick = [1:4];
-h_ax.XTickLabel = {'C1' 'C2' 'S1' 'S2'};
+h_ax.XTickLabel = {'C2797' 'C2799' 'S3101' 'S3102'};
+
+x_vector = [c1_bend.antagonist_agonist_ratio'; c2_bend.antagonist_agonist_ratio'; 
+			s1_bend.antagonist_agonist_ratio'; s2_bend.antagonist_agonist_ratio']; 
+grp = [repmat({'c2797'},1,length(c1_bend.antagonist_agonist_ratio)) ...
+	repmat({'c2799'},1,length(c2_bend.antagonist_agonist_ratio)) ...
+	repmat({'S3101'},1,length(s1_bend.antagonist_agonist_ratio)) ...
+	repmat({'S3102'},1,length(s2_bend.antagonist_agonist_ratio)) ]';
+[p, anovatab, stats] = kruskalwallis(x_vector, grp)
+figure
+comp = multcompare(stats)
 
 % extend
 figure
 h_ax = axes;
-plot(ones(1,20),c1_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
 hold on
-plot(2*ones(1,20),c2_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-plot(3*ones(1,18),s1_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-plot(4*ones(1,19),s2_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+plot(ones(1,length(c1_extend.antagonist_agonist_ratio)),c1_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m1 = mean(c1_extend.antagonist_agonist_ratio);
+sd1 = std(c1_extend.antagonist_agonist_ratio);
+line([0.75 1.25], [m1 m1])
+line([0.75 1.25], [m1+sd1 m1+sd1], 'Linestyle', '--')
+line([0.75 1.25], [m1-sd1 m1-sd1], 'Linestyle', '--')
+
+plot(2*ones(1,length(c2_extend.antagonist_agonist_ratio)),c2_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m2 = mean(c2_extend.antagonist_agonist_ratio);
+sd2 = std(c2_extend.antagonist_agonist_ratio);
+line([1.75 2.25], [m2 m2])
+line([1.75 2.25], [m2+sd2 m2+sd2], 'Linestyle', '--')
+line([1.75 2.25], [m2-sd2 m2-sd2], 'Linestyle', '--')
+
+plot(3*ones(1,length(s1_extend.antagonist_agonist_ratio)),s1_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m3 = mean(s1_extend.antagonist_agonist_ratio);
+sd3 = std(s1_extend.antagonist_agonist_ratio);
+line([2.75 3.25], [m3 m3])
+line([2.75 3.25], [m3+sd3 m3+sd3], 'Linestyle', '--')
+line([2.75 3.25], [m3-sd3 m3-sd3], 'Linestyle', '--')
+
+plot(4*ones(1,length(s2_extend.antagonist_agonist_ratio)),s2_extend.antagonist_agonist_ratio, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m4 = mean(s2_extend.antagonist_agonist_ratio);
+sd4 = std(s2_extend.antagonist_agonist_ratio);
+line([3.75 4.25], [m4 m4])
+line([3.75 4.25], [m4+sd4 m4+sd4], 'Linestyle', '--')
+line([3.75 4.25], [m4-sd4 m4-sd4], 'Linestyle', '--')
 title( 'Extend Isolated Movement')
 ylabel('Tricep AUC / Bicep AUC')
 xlabel('Subject')
 h_ax.XTick = [1:4];
-h_ax.XTickLabel = {'C1' 'C2' 'S1' 'S2'};
+h_ax.XTickLabel = {'C2797' 'C2799' 'S3101' 'S3102'};
+
+x_vector = [c1_extend.antagonist_agonist_ratio'; c2_extend.antagonist_agonist_ratio'; 
+			s1_extend.antagonist_agonist_ratio'; s2_extend.antagonist_agonist_ratio']; 
+grp = [repmat({'c2797'},1,length(c1_extend.antagonist_agonist_ratio)) ...
+	repmat({'c2799'},1,length(c2_extend.antagonist_agonist_ratio)) ...
+	repmat({'S3101'},1,length(s1_extend.antagonist_agonist_ratio)) ...
+	repmat({'S3102'},1,length(s2_extend.antagonist_agonist_ratio)) ]';
+[p, anovatab, stats] = kruskalwallis(x_vector, grp)
+figure
+comp = multcompare(stats)
