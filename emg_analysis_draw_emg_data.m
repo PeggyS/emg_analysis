@@ -25,9 +25,9 @@ line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.data_hp_filt(tricep_ind,
 	'Tag', 'line_tricep_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
 
 line(app.UIAxes_bicep, app.emg_data.time, app.emg_data.linear_envelope(bicep_ind,:), ...
-	'Tag', 'line_bicep_envelope', 'Color', [0 0 0], 'LineWidth', 2)
+	'Tag', 'line_bicep_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'off')
 line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.linear_envelope(tricep_ind,:), ...
-	'Tag', 'line_tricep_envelope', 'Color', [0 0 0], 'LineWidth', 2)
+	'Tag', 'line_tricep_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'off')
 
 if cocon_flag == true
 	% draw bicep & tricep envelope data
@@ -39,12 +39,12 @@ if cocon_flag == true
 	% adjust ylims of bicep & tricep axes
 	ymin = min(app.emg_data.linear_envelope(bicep_ind,:));
 	ymax = max(app.emg_data.linear_envelope(bicep_ind,:));
-	app.UIAxes_bicep.YLim = [ymin ymax];
+% 	app.UIAxes_bicep.YLim = [ymin ymax];
 	ymin = min(app.emg_data.linear_envelope(tricep_ind,:));
 	ymax = max(app.emg_data.linear_envelope(tricep_ind,:));
-	app.UIAxes_tricep.YLim = [ymin ymax];
+% 	app.UIAxes_tricep.YLim = [ymin ymax];
 	% ylims of cci
- 	app.UIAxes_cci.YLim = [0 200];
+ 	app.UIAxes_cci.YLim = [0 100];
 end
 
 

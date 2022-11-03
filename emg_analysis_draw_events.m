@@ -15,9 +15,11 @@ for e_cnt = 1:length(app.emg_data.event)
 		case 'bend'
 			event_color = [0 0 0.9];
 		case 'extend'
-			event_color = [0 0.9 0.3];
+% 			event_color = [0 0.9 0.3];
+			event_color = [0 0 0.9];
 		case {'relax' 'rest'}
-			event_color = [0.8 0 0];
+% 			event_color = [0.8 0 0];
+			event_color = [1 1 1];
 		case 'next'
 			event_color = [0.2 0.7 0.7];
 		case 'viconstart'
@@ -33,10 +35,10 @@ for e_cnt = 1:length(app.emg_data.event)
 	time = app.emg_data.event(e_cnt).time;
 	h(1) = line(app.UIAxes_bicep,  [time time], app.UIAxes_bicep.YLim, 'Color', event_color, ...
 		'LineWidth', 2, ...
-		'Tag', ['line_bicep_ax_event' num2str(e_cnt)]);
+		'Tag', ['line_bicep_ax_event' num2str(e_cnt)], 'Visible', 'off');
 	h(2) = line(app.UIAxes_tricep,  [time time], app.UIAxes_tricep.YLim, 'Color', event_color, ...
 		'LineWidth', 2, ...
-		'Tag', ['line_tricep_ax_event' num2str(e_cnt)]);
+		'Tag', ['line_tricep_ax_event' num2str(e_cnt)], 'Visible', 'off');
 	h(3) = line(app.UIAxes_cci,  [time time], app.UIAxes_cci.YLim, 'Color', event_color, ...
 		'LineWidth', 2, ...
 		'Tag', ['line_cci_ax_event' num2str(e_cnt)]);
