@@ -15,7 +15,17 @@ nyqf = sampf/2;
 % filter each column of data
 out = nan(size(in));
 for i = 1:size(in,2)
+	% replace NaN with linear fit between values
+	nanPts = isnan(in(:,i));
+	if any(nanPts)
+		in(:,i) = bridgenan(in(:,i));
+	end
+	% filter
 	out(:,i) = filtfilt(b,a,in(:,i));
+	% place Nans back in filtered data
+	if any(nanPts)
+		out(:,nanPts) = NaN;
+	end
 end
 
 % if data sent was switched from row-wise to col-wise, switch it back
