@@ -24,7 +24,7 @@ for i = 1:size(in,2)
 	out(:,i) = filtfilt(b,a,in(:,i));
 	% place Nans back in filtered data
 	if any(nanPts)
-		out(:,nanPts) = NaN;
+		out(nanPts,i) = NaN;
 	end
 end
 
