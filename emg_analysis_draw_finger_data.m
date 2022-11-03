@@ -11,9 +11,10 @@ end
 % is it left or right?
 if any(contains(app.vicon_data.lpfilt.Properties.VariableNames, 'RFIN'))
 	hand_var = 'RFIN';
-end
-if any(contains(app.vicon_data.lpfilt.Properties.VariableNames, 'LFIN'))
-	hand_var = 'RFIN';
+elseif any(contains(app.vicon_data.lpfilt.Properties.VariableNames, 'LFIN'))
+	hand_var = 'LFIN';
+else
+	error('emg_analysis_draw_finger_data.m - no finger data')
 end
 
 % compute finger/hand position relative to where it was when the most
