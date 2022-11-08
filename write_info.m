@@ -16,6 +16,10 @@ for fld = 1:length(fldNames)
 	% write the data
 	if ischar(info.(fldNames{fld}))
 		fprintf(fid, '%s', info.(fldNames{fld}));
+	elseif iscell(info.(fldNames{fld}))
+		for cnt = 1:length(info.(fldNames{fld}))
+			fprintf(fid, '%s ', info.(fldNames{fld}){cnt});
+		end
 	else
 		fprintf(fid, '%g ', info.(fldNames{fld}));
 	end
