@@ -3,25 +3,38 @@ function add_movement_end_event(app, event_num)
 % disp('add_movement_end_event')
 
 evt_time = app.emg_data.event(event_num).time;
-% start looking 2 s after the event and find where elbow velocity is zero 
 
-h_elb_line = findobj(app.CoConUIFigure, 'Tag', 'line_elbow_velocity');
-assert(~isempty(h_elb_line), 'add_movement_end_event - did not find elbow velocity line')
+% are we looking at elbow angle or hand movement data?
+if contains(app.UIAxes_elbow_angle.YLabel.String, 'Hand')
+% 	target_motion = 'hand';
+	line_tag = 'line_hand_velocity';
+elseif contains(app.UIAxes_elbow_angle.YLabel.String, 'Elbow')
+% 	target_motion = 'elbow_angle';
+	line_tag = 'line_elbow_velocity';
+else
+	error('add_movement_end_event.m - could not determine if hand position or elbow angle is used')
+end
+
+% start looking 2 s after the event and find where velocity is zero 
+
+% data line
+h_motion_line = findobj(app.UIAxes_elbow_velocity, 'Tag', line_tag);
+assert(~isempty(h_motion_line), ['add_movement_end_event - did not find ' line_tag ' line in app.UIAxes_elbow_velocity'])
 
 % index 2 s after event
 time_padding = 2;
-ind_move_beg = find(h_elb_line.XData > evt_time + time_padding, 1, 'first');
+ind_move_beg = find(h_motion_line.XData > evt_time + time_padding, 1, 'first');
 
-elb_velocity_sign = sign(h_elb_line.YData(ind_move_beg));
+motion_velocity_sign = sign(h_motion_line.YData(ind_move_beg));
 
-if elb_velocity_sign > 0
-	ind = find(h_elb_line.YData(ind_move_beg:end) < 0, 1, 'first');
+if motion_velocity_sign > 0
+	ind = find(h_motion_line.YData(ind_move_beg:end) < 0, 1, 'first');
 else
-	ind = find(h_elb_line.YData(ind_move_beg:end) > 0, 1, 'first');
+	ind = find(h_motion_line.YData(ind_move_beg:end) > 0, 1, 'first');
 end
 ind_move_end = ind_move_beg + ind - 1;
 
-time = h_elb_line.XData(ind_move_end);
+time = h_motion_line.XData(ind_move_end);
 event_color = [230 153 0]/255;
 % add move end line at ind
 h(1) = line(app.UIAxes_cci,  [time time], app.UIAxes_cci.YLim, 'Color', event_color, ...
