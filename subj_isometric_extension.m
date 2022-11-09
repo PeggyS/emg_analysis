@@ -136,3 +136,9 @@ h_ax.FontSize = 16;
 
 p_line = line([1 1 2 2], [0.28 0.32 0.32 0.28], 'color', [0 0 0], 'LineWidth', 2);
 h_txt = text(1.5, 0.34, '*', 'Fontsize', 40)
+
+
+% 20221109 - c1 and s1 figures and numbers are in the current version of
+% the grant
+
+[h, p] = ttest2(c1_extend.antagonist_agonist_ratio, s1_extend.antagonist_agonist_ratio)

@@ -34,7 +34,8 @@ Co-contraction analysis: cocontraction.mlapp
 	- reads in Brainvision Recorder (.vhdr) file
 	- displays bicep & tricep hp filtered data and emg linear envelope
 	- gets mvc data
-	- normalizes linear envelope by resting emg and mean of mvc values. Compute emg envelope same as mvc, subtract resting emg level, then scale by mean mvc minus resting emg * 100. Envelope value should be between 0 and 100, but I've seen some values over 100 - need to make sure we are getting good mvc data.
+	- normalizes linear envelope by resting emg and mean of mvc values. Compute emg envelope same as mvc, subtract resting emg level (ref for this: Sarcher 2017 paper on CP children who would have some background emg level even when in the most relaxed muscle state), then scale by mean mvc minus resting emg * 100. Envelope value should be between 0 and 100, but I've seen some values over 100 which means we did not get the Maximum mvc
+	- need to make sure we are getting good mvc data.
 	- Export info: 
 		- saved in .../myopro merit/analysis/emg/<subject>/<session>/<eeg file prefix>_<exp type (bend|extend)>_cocontraction_info.txt
 		- contains info about each movement and auc for the 2 muscles and ratio between the 2
