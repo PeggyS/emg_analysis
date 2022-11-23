@@ -2,7 +2,7 @@ function add_coactivation_patch(app, event_num)
 
 % x values for beginning & end of patch
 begin_t = app.emg_data.event(event_num).time;
-h_end_move_line = findobj(app.UIAxes_cci, 'Tag', ['line_cci_ax_move_end_event' num2str(event_num)]);
+h_end_move_line = findobj(app.UIAxes_cci, 'Tag', ['line_cci_ax_move_end_event' num2str(event_num)])
 assert(~isempty(h_end_move_line), ['add_coactivation_patch.m  - could not find line: ' ...
 	'line_cci_ax_move_end_event' num2str(event_num)]);
 
