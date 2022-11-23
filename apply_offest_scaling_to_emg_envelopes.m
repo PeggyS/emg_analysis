@@ -11,9 +11,9 @@ tricep_offset = mean(app.resting_emg.tricep.rms_value);
 app.emg_data.linear_envelope(tricep_ind,:) = app.emg_data.linear_envelope(tricep_ind,:) - tricep_offset;
 
 % scale by mean mvc (mvc = 100)
-scale  = mean(app.mvcs.bicep.rms_value) - bicep_offset;
+scale  = max(app.mvcs.bicep.rms_value) - bicep_offset;
 app.emg_data.linear_envelope(bicep_ind,:) = app.emg_data.linear_envelope(bicep_ind,:) / scale * 100;
-scale  = mean(app.mvcs.tricep.rms_value) - tricep_offset;
+scale  = max(app.mvcs.tricep.rms_value) - tricep_offset;
 app.emg_data.linear_envelope(tricep_ind,:) = app.emg_data.linear_envelope(tricep_ind,:) / scale * 100;
 
 % make any values below zero, zero
