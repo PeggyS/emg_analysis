@@ -22,7 +22,7 @@ c1.antagonist_agonist_ratio     = paramscell{8};
 c1.analysis_by   = paramscell{9};
 c1.analysis_date = paramscell{10};
 
-file_name = '/Users/peggy/Documents/BrainLab/myopro_merit/analysis/emg/c2795tdvg/Session01/20221107_0003_bend_extend_cocontraction_info.txt';
+file_name = '/Users/peggy/Documents/BrainLab/myopro_merit/analysis/emg/c2798tdvg/Session01/20221117_0004_bend_extend_cocontraction_info.txt';
 paramscell = readparamfile(file_name, keywords, defaults);
 c2.begin_t       = paramscell{1};
 c2.end_t         = paramscell{2};
@@ -51,98 +51,75 @@ s1.analysis_date = paramscell{10};
 
 
 
-% file_name = '/Users/peggy/Documents/BrainLab/myopro_merit/analysis/emg/s3102uemp/session00a/20221107_0003_isometric_tricep_cocontraction_info.txt';
-% paramscell = readparamfile(file_name, keywords, defaults);
-% s2_extend.begin_t       = paramscell{1};
-% s2_extend.end_t         = paramscell{2};
-% s2_extend.begin_angle     = paramscell{3};
-% s2_extend.end_angle       = paramscell{4};
-% s2_extend.bicep_auc         = paramscell{5};
-% s2_extend.tricep_auc     = paramscell{6};
-% s2_extend.antagonist_agonist_ratio     = paramscell{7};		
-% s2_extend.analysis_by   = paramscell{8};
-% s2_extend.analysis_date = paramscell{9};
+file_name = '/Users/peggy/Documents/BrainLab/myopro_merit/analysis/emg/s3103uemp/week01/20221116_0005_bend_extend_cocontraction_info.txt';
+paramscell = readparamfile(file_name, keywords, defaults);
+s2.begin_t       = paramscell{1};
+s2.end_t         = paramscell{2};
+s2.begin_angle     = paramscell{3};
+s2.end_angle       = paramscell{4};
+s2.bicep_auc         = paramscell{5};
+s2.tricep_auc     = paramscell{6};
+s2.motion     = strsplit(paramscell{7});
+s2.antagonist_agonist_ratio     = paramscell{8};		
+s2.analysis_by   = paramscell{9};
+s2.analysis_date = paramscell{10};
 
-
-figure
+% bend and extend cocontraction
+figure 
 h_ax = axes;
 hold on
 % c1 bend 
-bend_msk = contains(c1.motion, 'bend');
-c1.bend_data = c1.antagonist_agonist_ratio(bend_msk);
-plot(ones(1,length(c1.bend_data)),c1.bend_data, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-m1 = mean(c1.bend_data);
-sd1 = std(c1.bend_data);
-line([0.75 1.25], [m1 m1])
-line([0.75 1.25], [m1+sd1 m1+sd1], 'Linestyle', '--')
-line([0.75 1.25], [m1-sd1 m1-sd1], 'Linestyle', '--')
-
+plot_subj_values(c1, 'bend', 1)
 % c1 extend
-extend_msk = contains(c1.motion, 'extend');
-c1.extend_data = c1.antagonist_agonist_ratio(extend_msk);
-plot(2*ones(1,length(c1.extend_data)),c1.extend_data, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-m2 = mean(c1.extend_data);
-sd2 = std(c1.extend_data);
-line([1.75 2.25], [m2 m2])
-line([1.75 2.25], [m2+sd2 m2+sd2], 'Linestyle', '--')
-line([1.75 2.25], [m2-sd2 m2-sd2], 'Linestyle', '--')
-
-% s1 bend
-bend_msk = contains(s1.motion, 'bend');
-s1.bend_data = s1.antagonist_agonist_ratio(bend_msk);
-plot(3*ones(1,length(s1.bend_data)),s1.bend_data, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-m3 = mean(s1.bend_data);
-sd3 = std(s1.bend_data);
-line([2.75 3.25], [m3 m3])
-line([2.75 3.25], [m3+sd3 m3+sd3], 'Linestyle', '--')
-line([2.75 3.25], [m3-sd3 m3-sd3], 'Linestyle', '--')
-
-% s1 extend
-extend_msk = contains(s1.motion, 'extend');
-s1.extend_data = s1.antagonist_agonist_ratio(extend_msk);
-plot(4*ones(1,length(s1.extend_data)),s1.extend_data, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-m4 = mean(s1.extend_data);
-sd4 = std(s1.extend_data);
-line([3.75 4.25], [m4 m4])
-line([3.75 4.25], [m4+sd4 m4+sd4], 'Linestyle', '--')
-line([3.75 4.25], [m4-sd4 m4-sd4], 'Linestyle', '--')
-
+plot_subj_values(c1, 'extend', 2)
 % c2 bend
-bend_msk = contains(c2.motion, 'bend');
-c2.bend_data = c2.antagonist_agonist_ratio(bend_msk);
-plot(5*ones(1,length(c2.bend_data)),c2.bend_data, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-m5 = mean(c2.bend_data);
-sd5 = std(c2.bend_data);
-line([4.75 5.25], [m5 m5])
-line([4.75 5.25], [m5+sd5 m5+sd5], 'Linestyle', '--')
-line([4.75 5.25], [m5-sd5 m5-sd5], 'Linestyle', '--')
-
+plot_subj_values(c2, 'bend', 3)
 % c2 extend
-extend_msk = contains(c2.motion, 'extend');
-c2.extend_data = c2.antagonist_agonist_ratio(extend_msk);
-plot(6*ones(1,length(c2.extend_data)),c2.extend_data, 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
-m6 = mean(c2.extend_data);
-sd6 = std(c2.extend_data);
-line([5.75 6.25], [m6 m6])
-line([5.75 6.25], [m6+sd6 m6+sd6], 'Linestyle', '--')
-line([5.75 6.25], [m6-sd6 m6-sd6], 'Linestyle', '--')
-
+plot_subj_values(c2, 'extend', 4)
+% s1 bend 
+plot_subj_values(s1, 'bend', 5)
+% s1 extend
+plot_subj_values(s1, 'extend', 6)
+% s2 bend
+plot_subj_values(s2, 'bend', 7)
+% s2 extend
+plot_subj_values(s2, 'extend', 8)
 
 title( 'Bend-Extend Isolated Movement')
 ylabel('CCI')
 xlabel('Subject')
-h_ax.XTick = [1:6];
-h_ax.XTickLabel = {'C2797 Bend' 'C2797 Extend' 'S3102 Bend' 'S3102 Extend' 'C2795 Bend' 'C2795 Extend'};
+h_ax.XTick = 1:8;
+h_ax.XTickLabel = {'c2797 Bend' 'c2797 Extend' 'c2798 Bend' 'c2798 Extend' ...
+					's3102 Bend' 's3102 Extend' 's3103 Bend' 's3103 Extend'};
 
-x_vector = [c1.bend_data'; c1.extend_data'; 
-			s1.bend_data'; s1.extend_data';
-			c2.bend_data'; c2.extend_data']; 
-grp = [repmat({'c2797bend'},1,length(c1.bend_data)) ...
-	repmat({'c2797extend'},1,length(c1.extend_data)) ...
-	repmat({'S3102bend'},1,length(s1.bend_data)) ...
-	repmat({'S3102extend'},1,length(s1.extend_data)) ...
-	repmat({'c2795bend'},1,length(c2.bend_data)) ...
-	repmat({'c2795extend'},1,length(c2.extend_data))]';
+% extend only cocontraction 
+figure 
+h_ax = axes;
+hold on
+% c1 extend
+c1 = plot_subj_values(c1, 'extend', 1);
+% c2 extend
+c2 = plot_subj_values(c2, 'extend', 2);
+% s1 extend
+s1 = plot_subj_values(s1, 'extend', 3);
+% s2 extend
+s2 = plot_subj_values(s2, 'extend', 4);
+
+title( 'Extend Isolated Movement')
+ylabel('CCI')
+xlabel('Subject')
+h_ax.XTick = 1:8;
+h_ax.XTickLabel = {'c2797' 'c2798' 's3102' 's3103'};
+
+% extend cci stats
+x_vector = [c1.extend_data'; 
+			c2.extend_data';
+			s1.extend_data';
+			s2.extend_data']; 
+grp = [repmat({'c2797'},1,length(c1.extend_data)) ...
+	   repmat({'c2798'},1,length(c2.extend_data)) ...
+	   repmat({'s3102'},1,length(s1.extend_data)) ...
+	   repmat({'s3103'},1,length(s2.extend_data)) ]';
 % [p, anovatab, stats] = kruskalwallis(x_vector, grp)
 [p, anovatab, stats] = anova1(x_vector, grp)
 figure
@@ -173,7 +150,7 @@ h_ax.YLim = [0 0.37];
 h_ax.LineWidth = 1;
 h_ax.FontSize = 16;
 
-[h, p] = ttest2(c1.antagonist_agonist_ratio, s2_extend.antagonist_agonist_ratio)
+[h, p] = ttest2(c1.antagonist_agonist_ratio, s2.antagonist_agonist_ratio)
 
 p_line = line([1 1 2 2], [0.28 0.32 0.32 0.28], 'color', [0 0 0], 'LineWidth', 2);
 h_txt = text(1.5, 0.34, '*', 'Fontsize', 40)
@@ -183,3 +160,18 @@ h_txt = text(1.5, 0.34, '*', 'Fontsize', 40)
 % the grant
 
 [h, p] = ttest2(c1.antagonist_agonist_ratio, s1.antagonist_agonist_ratio)
+
+% --------------------------------
+function subj_struct = plot_subj_values(subj_struct, motion_str, x_col)
+msk = contains(subj_struct.motion, motion_str);
+var_str = [motion_str '_data'];
+subj_struct.(var_str) = subj_struct.antagonist_agonist_ratio(msk);
+plot(x_col*ones(1,length(subj_struct.(var_str))),subj_struct.(var_str), 'marker', 'o', 'linestyle', 'none', 'MarkerFaceColor', [0 0.4470 0.7410])
+m1 = mean(subj_struct.(var_str));
+sd1 = std(subj_struct.(var_str));
+line(x_col-1+[0.75 1.25], [m1 m1])
+line(x_col-1+[0.75 1.25], [m1+sd1 m1+sd1], 'Linestyle', '--')
+line(x_col-1+[0.75 1.25], [m1-sd1 m1-sd1], 'Linestyle', '--')
+
+return
+end

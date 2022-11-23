@@ -12,7 +12,7 @@ h_l = line(app.UIAxes_cci,  [end_time end_time], app.UIAxes_cci.YLim, 'Color', e
 		'UserData', app);
 
 
-tmp = draggable(h_l, 'h', @end_event_move_callback);
+draggable(h_l, 'h', @end_event_move_callback);
 
 return
 end
