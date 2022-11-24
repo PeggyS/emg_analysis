@@ -7,8 +7,8 @@ if ~isempty(h_patches)
 end
 
 % mvc info read in from file and saved in app.mvcs
-if ~isempty(app.mvcs)
-	f_names = fieldnames(app.mvcs);
+f_names = fieldnames(app.mvcs);
+if ~isempty(f_names)
 	for m_cnt = 1:length(f_names)
 		muscle = f_names{m_cnt};
 		axes_str = ['UIAxes_' muscle];
