@@ -9,7 +9,8 @@ for cnt = 1:length(app.cocontraction_data.begin_t)
 	if ~isempty(app.emg_data)
 		for e_cnt = 1:length(app.emg_data.event)
 			if contains(lower(app.emg_data.event(e_cnt).code), 'bend') || ...
-					contains(lower(app.emg_data.event(e_cnt).code), 'extend')
+					contains(lower(app.emg_data.event(e_cnt).code), 'extend') || ...
+					contains(lower(app.emg_data.event(e_cnt).code), 'move')
 				event_distance = abs(app.cocontraction_data.begin_t(cnt) - app.emg_data.event(e_cnt).time);
 				if event_distance < closest_event_distance
 					% event is to the left of the begin_t

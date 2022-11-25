@@ -22,7 +22,7 @@ if analysis_path ~= 0
 
 	cocon_filename_txt = [exp_type '_cocontraction_info'];
 
-	file_list = regexpdir(analysis_path, ['(.*_' cocon_filename_txt '\.txt)$']);
+	file_list = regexpdir(analysis_path, ['(.*_' cocon_filename_txt '\.txt)$'], false); % do not look recursively
 	if length(file_list) < 1
 		disp(['found no *' cocon_filename_txt '.txt files.'])
 		return;
