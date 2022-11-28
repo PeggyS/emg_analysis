@@ -42,8 +42,8 @@ Co-contraction analysis: cocontraction.mlapp
 
 
 	- todo:
-		- read in previous analysis cocontraction_info.txt
 		- add provision in compute_cocontraction_from_patches.m for bend-extend experiments (see FIXME)
+		- in bend-extend experiment extract begin and end elbow angle
 
 	- Elbow angle data from Vicon:
 		- reconstruct & label trial in Vicon Nexus

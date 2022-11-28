@@ -17,18 +17,34 @@ end
 
 % find the bicep & tricep channel indices
 bicep_ind = find_channel_index(app.emg_data, 'bicep');
+if ~isempty(bicep_ind)
+	line(app.UIAxes_bicep, app.emg_data.time, app.emg_data.data_hp_filt(bicep_ind,:), ...
+		'Tag', 'line_bicep_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
+	line(app.UIAxes_bicep, app.emg_data.time, app.emg_data.linear_envelope(bicep_ind,:), ...
+		'Tag', 'line_bicep_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'on')
+end
 tricep_ind = find_channel_index(app.emg_data, 'tricep');
-
-line(app.UIAxes_bicep, app.emg_data.time, app.emg_data.data_hp_filt(bicep_ind,:), ...
-	'Tag', 'line_bicep_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
-line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.data_hp_filt(tricep_ind,:), ...
-	'Tag', 'line_tricep_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
-
-line(app.UIAxes_bicep, app.emg_data.time, app.emg_data.linear_envelope(bicep_ind,:), ...
-	'Tag', 'line_bicep_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'on')
-line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.linear_envelope(tricep_ind,:), ...
-	'Tag', 'line_tricep_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'on')
-
+if ~isempty(tricep_ind)
+	line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.data_hp_filt(tricep_ind,:), ...
+		'Tag', 'line_tricep_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
+	line(app.UIAxes_tricep, app.emg_data.time, app.emg_data.linear_envelope(tricep_ind,:), ...
+		'Tag', 'line_tricep_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'on')
+end
+% and finger muscles
+fingflex_ind = find_channel_index(app.emg_data, 'fingerflexors');
+if ~isempty(fingflex_ind)
+	line(app.UIAxes_fingerflexors, app.emg_data.time, app.emg_data.data_hp_filt(fingflex_ind,:), ...
+		'Tag', 'line_fingerflexors_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
+	line(app.UIAxes_fingerflexors, app.emg_data.time, app.emg_data.linear_envelope(fingflex_ind,:), ...
+		'Tag', 'line_fingerflexors_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'on')
+end
+fingextens_ind = find_channel_index(app.emg_data, 'fingerextensors');
+if ~isempty(fingextens_ind)
+	line(app.UIAxes_fingerextensors, app.emg_data.time, app.emg_data.data_hp_filt(fingextens_ind,:), ...
+		'Tag', 'line_fingerextensors_hp_filt', 'Color', [0 0.4470 0.7410 0.25])
+	line(app.UIAxes_fingerextensors, app.emg_data.time, app.emg_data.linear_envelope(fingextens_ind,:), ...
+		'Tag', 'line_fingerextensors_envelope', 'Color', [0 0 0], 'LineWidth', 2, 'Visible', 'on')
+end
 if cocon_flag == true
 	% use downsampled time & linear envelope, if present
 	if isfield(app.emg_data, 'time_downsampled')

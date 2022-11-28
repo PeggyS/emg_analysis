@@ -28,6 +28,12 @@ else
 			case {'tricepmvc' 'tricep mvc'}
 				emg_analysis_add_patch(app.UIAxes_tricep, app.emg_data.event(e_cnt).time, ...
 					app.emg_data.event(e_cnt).time + 1.0)
+			case 'fingerextmvc'
+				emg_analysis_add_patch(app.UIAxes_fingerextensors, app.emg_data.event(e_cnt).time, ...
+					app.emg_data.event(e_cnt).time + 1.0)
+			case 'fingerflexmvc'
+				emg_analysis_add_patch(app.UIAxes_fingerflexors, app.emg_data.event(e_cnt).time, ...
+					app.emg_data.event(e_cnt).time + 1.0)
 		end
 	end % each event
 end
