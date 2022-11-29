@@ -11,6 +11,8 @@ elseif app.IsometricBicepButton.Value == 1
 	exp_type = 'isometric_bicep';
 elseif app.IsometricTricepButton.Value == 1
 	exp_type = 'isometric_tricep';
+elseif app.FingerExtendButton.Value == 1
+	exp_type = 'finger_extend';
 else
 	error('save_cocontraction_info.m - did not find experiment type')
 end

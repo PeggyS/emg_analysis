@@ -11,8 +11,10 @@ if contains(app.UIAxes_elbow_angle.YLabel.String, 'Hand')
 elseif contains(app.UIAxes_elbow_angle.YLabel.String, 'Elbow')
 % 	target_motion = 'elbow_angle';
 	line_tag = 'line_elbow_velocity';
+elseif contains(app.UIAxes_elbow_angle.YLabel.String, 'MCP')
+	line_tag = 'line_mcp_velocity';
 else
-	error('add_movement_end_event.m - could not determine if hand position or elbow angle is used')
+	error('add_movement_end_event.m - could not determine if hand position, elbow angle, or mcp angle is used')
 end
 
 % start looking 2 s after the event and find where velocity is zero 
