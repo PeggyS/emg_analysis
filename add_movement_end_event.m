@@ -3,6 +3,7 @@ function add_movement_end_event(app, event_num)
 % disp('add_movement_end_event')
 
 evt_time = app.emg_data.event(event_num).time;
+time_padding = 2;
 
 % are we looking at elbow angle or hand movement data?
 if contains(app.UIAxes_elbow_angle.YLabel.String, 'Hand')
@@ -17,14 +18,13 @@ else
 	error('add_movement_end_event.m - could not determine if hand position, elbow angle, or mcp angle is used')
 end
 
-% start looking 2 s after the event and find where velocity is zero 
+% start looking time_padding s after the event and find where velocity is zero 
 
 % data line
 h_motion_line = findobj(app.UIAxes_elbow_velocity, 'Tag', line_tag);
 assert(~isempty(h_motion_line), ['add_movement_end_event - did not find ' line_tag ' line in app.UIAxes_elbow_velocity'])
 
-% index 2 s after event
-time_padding = 2;
+% index time_padding s after event
 ind_move_beg = find(h_motion_line.XData > evt_time + time_padding, 1, 'first');
 
 motion_velocity_sign = sign(h_motion_line.YData(ind_move_beg));

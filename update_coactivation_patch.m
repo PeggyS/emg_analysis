@@ -6,11 +6,23 @@ h_end_move_line = findobj(app.UIAxes_cci, 'Tag', ['line_cci_ax_move_end_event' n
 assert(~isempty(h_end_move_line), ['update_coactivation_patch.m  - could not find line: ' ...
 	'line_cci_ax_move_end_event' num2str(event_num)]);
 
-% separate patches for bicep and tricep
+% separate patches for bicep or fingerflexors and tricep or fingerextensors
 h_bicep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_bicep');
-assert(~isempty(h_bicep), 'update_coactivation_patch.m - could not find line_cci_bicep')
+if isempty(h_bicep)
+	h_bicep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_fingerflexors');
+	if isempty(h_bicep)
+		disp('found no bicep or fingerflexors line_cci')
+		return
+	end
+end
 h_tricep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_tricep');
-assert(~isempty(h_tricep), 'update_coactivation_patch.m - could not find line_cci_tricep')
+if isempty(h_tricep)
+	h_tricep = findobj(app.UIAxes_cci, 'Tag', 'line_cci_fingerextensors');
+	if isempty(h_tricep)
+		disp('found no tricep or fingerextensors line_cci')
+		return
+	end
+end
 
 % bicep
 y_val = h_bicep.YData;
@@ -30,6 +42,13 @@ vertices = [vertices; end_t, 0];
 
 % find the patch
 h_patch = findobj(app.UIAxes_cci, 'Tag', ['bicep_emg_patch' num2str(event_num)]);
+if isempty(h_patch)
+	h_patch = findobj(app.UIAxes_cci, 'Tag', ['fingerflexors_emg_patch' num2str(event_num)]);
+	if isempty(h_patch)
+		disp('found no bicep or fingerflexors patch')
+		return
+	end
+end
 
 % update the patch
 h_patch.Vertices = vertices;
@@ -54,6 +73,13 @@ vertices = [vertices; end_t, 0];
 
 % find the patch
 h_patch = findobj(app.UIAxes_cci, 'Tag', ['tricep_emg_patch' num2str(event_num)]);
+if isempty(h_patch)
+	h_patch = findobj(app.UIAxes_cci, 'Tag', ['fingerextensors_emg_patch' num2str(event_num)]);
+	if isempty(h_patch)
+		disp('found no tricep or fingerextensors patch')
+		return
+	end
+end
 
 % update the patch
 h_patch.Vertices = vertices;

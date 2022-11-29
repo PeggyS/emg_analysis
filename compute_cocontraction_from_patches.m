@@ -10,12 +10,13 @@ elseif contains(app.UIAxes_elbow_angle.YLabel.String, 'Elbow')
 % 	target_motion = 'elbow_angle';
 	line_tag = 'line_elbow_angle_lpfilt';
 elseif contains(app.UIAxes_elbow_angle.YLabel.String, 'MCP')
-	line_tag = 'line_mcp_lpfilt';
+	line_tag = 'line_mcp_angle_lpfilt';
 else
 	error('add_movement_end_event.m - could not determine if hand position, elbow angle, or mcp angle is used')
 end
 
-if app.BendOnlyButton.Value == 1 || app.ExtendOnlyButton.Value == 1 || app.BendExtendButton.Value == 1
+if app.BendOnlyButton.Value == 1 || app.ExtendOnlyButton.Value == 1 || ...
+		app.BendExtendButton.Value == 1 || app.FingerExtendButton.Value == 1
 	% elbow angle or hand position data
 	h_motion_line = findobj(app.UIAxes_elbow_angle, 'Tag', line_tag);
 end
@@ -32,7 +33,8 @@ for p_cnt = 1:length(app.coactivation_patches)
 	app.cocontraction_data.begin_t(p_cnt) = t_begin;
 	app.cocontraction_data.end_t(p_cnt) = t_end;
 	
-	if app.BendOnlyButton.Value == 1 || app.ExtendOnlyButton.Value == 1
+	if app.BendOnlyButton.Value == 1 || app.ExtendOnlyButton.Value == 1 || ...
+			app.BendExtendButton.Value == 1 || app.FingerExtendButton.Value == 1
 		% begin and end angle
 		ind_begin = find(h_motion_line.XData >= t_begin, 1, 'first');
 		ind_end = find(h_motion_line.XData >= t_end, 1, 'first');
