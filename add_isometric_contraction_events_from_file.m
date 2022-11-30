@@ -23,7 +23,8 @@ for cnt = 1:length(app.cocontraction_data.begin_t)
 % 	if closest_event_num == 14
 % 		keyboard
 % 	end
-	add_isometric_contraction_end_event(app, closest_event_num, app.cocontraction_data.end_t(cnt))
+	add_movement_end_event(app, closest_event_num)
+% 	add_isometric_contraction_end_event(app, closest_event_num, app.cocontraction_data.end_t(cnt))
 	% 			drawnow
 	add_coactivation_patch(app, closest_event_num)
 
