@@ -69,21 +69,21 @@ figure
 h_ax = axes;
 hold on
 % c1 bend 
-plot_subj_values(c1, 'bend', 1)
+plot_subj_values(c1, 'bend', 1);
 % c1 extend
-plot_subj_values(c1, 'extend', 2)
+plot_subj_values(c1, 'extend', 2);
 % c2 bend
-plot_subj_values(c2, 'bend', 3)
+plot_subj_values(c2, 'bend', 3);
 % c2 extend
-plot_subj_values(c2, 'extend', 4)
+plot_subj_values(c2, 'extend', 4);
 % s1 bend 
-plot_subj_values(s1, 'bend', 5)
+plot_subj_values(s1, 'bend', 5);
 % s1 extend
-plot_subj_values(s1, 'extend', 6)
+plot_subj_values(s1, 'extend', 6);
 % s2 bend
-plot_subj_values(s2, 'bend', 7)
+plot_subj_values(s2, 'bend', 7);
 % s2 extend
-plot_subj_values(s2, 'extend', 8)
+plot_subj_values(s2, 'extend', 8);
 
 title( 'Bend-Extend Isolated Movement')
 ylabel('CCI')
@@ -125,7 +125,44 @@ grp = [repmat({'c2797'},1,length(c1.extend_data)) ...
 figure
 comp = multcompare(stats)
 
+
+
+% 4 subjects bar chart
+figure
+h_ax = axes;
+
+x = 1:4;
+y = [mean(c1.extend_data) mean(c2.extend_data) mean(s2.extend_data) mean(s1.extend_data)];
+bar(x,y)
+hold on
+errlow = [std(c1.extend_data) std(c2.extend_data) std(s2.extend_data) std(s1.extend_data)];
+errhigh = [std(c1.extend_data) std(c2.extend_data) std(s2.extend_data) std(s1.extend_data)];
+er = errorbar(x,y,errlow,errhigh);    
+er.Color = [0 0 0];                            
+er.LineStyle = 'none'; 
+er.LineWidth = 4;
+
+h_ax.XTick = 1:4;
+h_ax.XTickLabel = {'C 1' 'C 2' 'S 1' 'S 2'};
+h_ax.YLim = [0 0.8];
+h_ax.LineWidth = 3;
+h_ax.FontSize = 30;
+h_ax.FontWeight = 'bold';
+box off;
+ylabel('CCI')
+
+% sig difference lines/labels
+p12_line = line([1 1 2 2], [0.17 0.22 0.22 0.17], 'color', [0 0 0], 'LineWidth', 4);
+ph_3_line = line([1.5 1.5 3 3], [0.4 0.45 0.45 0.4], 'color', [0 0 0], 'LineWidth', 4); 
+h_txt = text(2.25, 0.47, '*', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+
+p34_line = line([3 3 4 4], [0.55 0.6 0.6 0.55], 'color', [0 0 0], 'LineWidth', 4); 
+h_txt = text(3.5, 0.62, '**', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+
+ph4_line = line([1.5 1.5 4 4], [0.65 0.7 0.7 0.65], 'color', [0 0 0], 'LineWidth', 4); 
+h_txt = text(2.5, 0.72, '***', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
 keyboard
+
 
 % figure with just c2797 and s3102
 figure
