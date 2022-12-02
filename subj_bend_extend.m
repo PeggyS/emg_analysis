@@ -132,12 +132,16 @@ figure
 h_ax = axes;
 
 x = 1:4;
-y = [mean(c1.extend_data) mean(c2.extend_data) mean(s2.extend_data) mean(s1.extend_data)];
-bar(x,y)
+c = [mean(c1.extend_data) mean(c2.extend_data)];
+s = [ mean(s2.extend_data) mean(s1.extend_data)];
+h_b = bar(1:2,c);
+h_b.FaceColor = [0.88,0.91,0.55];
 hold on
+h_b = bar(3:4,s);
+h_b.FaceColor = [0.40,0.69,0.56];
 errlow = [std(c1.extend_data) std(c2.extend_data) std(s2.extend_data) std(s1.extend_data)];
 errhigh = [std(c1.extend_data) std(c2.extend_data) std(s2.extend_data) std(s1.extend_data)];
-er = errorbar(x,y,errlow,errhigh);    
+er = errorbar(x,[c s],errlow,errhigh);    
 er.Color = [0 0 0];                            
 er.LineStyle = 'none'; 
 er.LineWidth = 4;
@@ -150,6 +154,7 @@ h_ax.FontSize = 30;
 h_ax.FontWeight = 'bold';
 box off;
 ylabel('CCI')
+title('A - Elbow')
 
 % sig difference lines/labels
 p12_line = line([1 1 2 2], [0.17 0.22 0.22 0.17], 'color', [0 0 0], 'LineWidth', 4);
@@ -157,10 +162,10 @@ ph_3_line = line([1.5 1.5 3 3], [0.4 0.45 0.45 0.4], 'color', [0 0 0], 'LineWidt
 h_txt = text(2.25, 0.47, '*', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
 
 p34_line = line([3 3 4 4], [0.55 0.6 0.6 0.55], 'color', [0 0 0], 'LineWidth', 4); 
-h_txt = text(3.5, 0.62, '**', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+h_txt = text(3.5, 0.62, '*', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
 
 ph4_line = line([1.5 1.5 4 4], [0.65 0.7 0.7 0.65], 'color', [0 0 0], 'LineWidth', 4); 
-h_txt = text(2.5, 0.72, '***', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+h_txt = text(2.5, 0.72, '*', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
 keyboard
 
 

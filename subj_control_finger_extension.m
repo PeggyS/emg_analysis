@@ -129,6 +129,45 @@ xlabel('Angle excursion (°)')
 ylabel('CCI')
 legend({'c2795', 'c2798', 's3101'})
 title('Finger extension - CCI vs Angle')
+
+
+% 2 subjects bar chart c1 and s1 
+figure
+h_ax = axes;
+x = 1:2;
+c = mean(c1.antagonist_agonist_ratio);
+s =  mean(s2.antagonist_agonist_ratio);
+h_b = bar(1,c);
+h_b.FaceColor = [0.88,0.91,0.55];
+hold on
+h_b = bar(2,s);
+h_b.FaceColor = [0.40,0.69,0.56];
+errlow = [std(c1.antagonist_agonist_ratio) std(s2.antagonist_agonist_ratio)];
+errhigh = [std(c1.antagonist_agonist_ratio) std(s2.antagonist_agonist_ratio)];
+er = errorbar(x,[c s],errlow,errhigh);    
+er.Color = [0 0 0];                            
+er.LineStyle = 'none'; 
+er.LineWidth = 4;
+
+h_ax.XTick = 1:2;
+h_ax.XTickLabel = {'C 1' 'S 1' };
+h_ax.YLim = [0 1.5];
+h_ax.LineWidth = 3;
+h_ax.FontSize = 30;
+h_ax.FontWeight = 'bold';
+box off;
+ylabel('CCI')
+title('B - Finger')
+
+% sig difference lines/labels
+p12_line = line([1 1 2 2], [1.25 1.35 1.35 1.25], 'color', [0 0 0], 'LineWidth', 4);
+h_txt = text(1.5, 1.38, '*', 'Fontsize', 60, 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+
+[h, p] = ttest2(c1.antagonist_agonist_ratio, s2.antagonist_agonist_ratio)
+% p = 3.0165e-07
+keyboard
+
+
 % --------------------------------
 function subj_struct = plot_subj_values(subj_struct, x_col, exc_str)
 
