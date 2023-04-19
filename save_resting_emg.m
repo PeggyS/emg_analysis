@@ -13,6 +13,11 @@ analysis_by = upper(app.AnalysisbyEditField.Value);
 analysis_date = app.AnalysisdateEditField.Value;
 
 % save separate file for each muscle
+if isempty(app.resting_emg)
+	uialert(app.MVCAnalysisUIFigure, 'No Resting EMG patch was identified. No resting EMG info will be saved.', ...
+		'Missing information', 'Icon', 'warning')
+	return
+end
 muscle_names  = fieldnames(app.resting_emg);
 for m_cnt = 1:length(muscle_names)
 	muscle = muscle_names{m_cnt};
