@@ -19,20 +19,24 @@ Chalard A, Belle M, Montané E, Marque P, Amarantini D, Gasq D. Impact of the EM
 MVC analysis: mvc.mlapp
 	- reads in Brainvision Recorder (.vhdr) file
 	- displays bicep & tricep hp filtered data and emg linear envelope (10-400 Hz, rectified, 9 Hz lp filt, 4th order zero-lag butterworth)
+	- emg data is also notch filtered (59-61 hz). I don't like this, but a lot of the very early data had excessive 60 Hz noise.
 	- adds (draggable) patches at the mvc events
 	- saves the rms value in the mvc window to a file
 		- file: .../analysis/emg/<subject>/<session>/<muscle>_mvcs.txt
 	- extract the 'resting' emg level - use 1 s window with lowest mean value of linear envelope. Right-click near low emg area and the app will look in a 10 s window around that click for the lowest 1 s interval of emg.
 		- when Save MVCs button is clicked the resting emg files are also saved: .../analysis/emg/<subject>/<session>/<muscle>_resting_emg.txt
 
+	update 2023-04-19: add reading in and display of previous resting emg info
+	
 	todo:
-		- add reading in and display of previous resting emg info
+		- 
 		- add deletion and addition of mvc patches
 		
 
 Co-contraction analysis: cocontraction.mlapp
 	- reads in Brainvision Recorder (.vhdr) file
 	- displays bicep & tricep hp filtered data and emg linear envelope
+	- emg data is also notch filtered (59-61 hz). I don't like this, but a lot of the very early data had excessive 60 Hz noise.
 	- gets mvc data
 	- normalizes linear envelope by resting emg and mean of mvc values. Compute emg envelope same as mvc, subtract resting emg level (ref for this: Sarcher 2017 paper on CP children who would have some background emg level even when in the most relaxed muscle state), then scale by *maximum* mvc minus resting emg * 100. Envelope value should be between 0 and 100, but I've seen some values over 100 which means we did not get the Maximum mvc
 	- need to make sure we are getting good mvc data.

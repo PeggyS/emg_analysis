@@ -3,7 +3,7 @@ function read_resting_emg_info(app)
 % get default save path
 analysis_path = get_save_path(app, false);
 if analysis_path ~= 0
-	file_list = regexpdir(analysis_path,'(.*_resting_emg\.txt)$');
+	file_list = regexpdir(analysis_path,'(^.*_resting_emg\.txt)$', false);
 	if length(file_list) < 1
 		disp('found no *_resting_emg.txt files.')
 		return;
