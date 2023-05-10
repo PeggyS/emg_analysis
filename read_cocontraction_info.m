@@ -23,18 +23,48 @@ analysis_path = get_save_path(app, false);
 if analysis_path ~= 0
 
 	cocon_filename_txt = [exp_type '_cocontraction_info'];
-
+	
 	file_list = regexpdir(analysis_path, ['(.*_' cocon_filename_txt '\.txt)$'], false); % do not look recursively
 	if length(file_list) < 1
 		disp(['found no *' cocon_filename_txt '.txt files.'])
 		return;
 	end
-	if length(file_list) > 1
-		disp(['found more than 1 ' cocon_filename_txt '.txt files.'])
-		return;
+	if length(file_list) >= 1
+		disp(['found 1 or more ' cocon_filename_txt '.txt files.'])
+		% check each file to see if the number agrees with the eeg file
+		% number
+		match_found = false;
+		for f_cnt = 1:length(file_list)
+			file_name = file_list{f_cnt};
+			match_struct = regexp(app.FileNameLabel.Text, '_(?<num>\d{4})\.vhdr', 'names');
+			if ~isempty(match_struct)
+				file_num_str = match_struct.num;
+				if contains(file_name, ['_' file_num_str '_extend_'])
+					% it's a match
+					match_found = true;
+					break;
+				end
+			end
+		end
+		if match_found == false
+			return
+		end
 	end
 
-	file_name = file_list{1};
+	
+% 	file_name = file_list{1};
+% 	% check to see if the number after the date in the file name agrees
+% 	% with the eeg file number, if not, then it's not the matching info
+% 	% file
+% 	match_struct = regexp(app.FileNameLabel.Text, '_(?<num>\d{4})\.vhdr', 'names');
+% 	if ~isempty(match_struct)
+% 		file_num_str = match_struct.num;
+% 		if contains(file_name, ['_' file_num_str '_extend_'])
+% 			% it's a match
+% 		else
+% 			return
+% 		end
+% 	end
 
 	if exist(file_name, 'file') ~= 2
 		return

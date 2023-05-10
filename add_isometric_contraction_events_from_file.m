@@ -20,7 +20,7 @@ for cnt = 1:length(app.cocontraction_data.begin_t)
 			end
 		end
 	end
-% 	if closest_event_num == 14
+% 	if closest_event_num == 19
 % 		keyboard
 % 	end
 	add_movement_end_event(app, closest_event_num)

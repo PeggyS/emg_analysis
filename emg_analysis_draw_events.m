@@ -15,13 +15,13 @@ for e_cnt = 1:length(app.emg_data.event)
 		case 'bend'
 			event_color = [0 0 0.9];
 		case 'extend'
-			event_color = [0 0.9 0.3];
+			event_color = [0 0.9 0.3]; % green
 % 			event_color = [0 0 0.9];
 		case {'relax' 'rest'}
 			event_color = [0.8 0 0];
 % 			event_color = [1 1 1];
 		case 'next'
-			event_color = [0.2 0.7 0.7];
+			event_color = [0.2 0.7 0.7]; % dark cyan
 		case 'viconstart'
 			event_color = [0.2 0.7 0.2];
 		case 'viconstop'
