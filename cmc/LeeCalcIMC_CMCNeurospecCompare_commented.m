@@ -13,20 +13,35 @@ Setup.Decimation=10;%how much to downsample raw data. This example data file was
 % so I downsampled by 10 to get to 1000
 Setup.RMSFlag=0;
 Setup.Hz60NotchFlag=1;
+
+% s3103 week01 0007 = isometric extension
 % dat=load('C:\Grants\AhlamCDA2\ResubmissionJune2022\ResubmissionDec2022\Data\REdownload\s3103uemp\week01\0007.mat');
 % dat = load('/Users/peggy/Documents/BrainLab/myopro_merit/analysis/eeg/s3103uemp/week01/0007.mat')
-% dat = load('/Users/peggy/Documents/BrainLab/myopro_merit/analysis/eeg/s3103uemp/week01/0007.mat')
-[dat.EEG, com] = pop_loadbv('/Users/peggy/Documents/BrainLab/myopro_merit/data/emg-nirs-eeg/c2795tdvg/Session01/', ...
-	'20221107_0002.vhdr')
+[dat.EEG, com] = pop_loadbv('/Users/peggy/Documents/BrainLab/myopro_merit/data/emg-nirs-eeg/s3103uemp/week01', ...
+	'20221116_0007.vhdr');
 % savepath='C:\Grants\AhlamCDA2\ResubmissionJune2022\ResubmissionDec2022\Data\REdownload\s3103uemp\week01\0007_processedCompare';
-savepath = '/Users/peggy/Documents/BrainLab/myopro_merit/analysis/eeg/c2795/Session01/';
+
+% c2795 session session01 0002 = isometric extension, subset of channels
+% were gelled. From my notes, Cz was not gelled. Looking at the data in
+% EEGLAB, Cz looks like noise.
+% [dat.EEG, com] = pop_loadbv('/Users/peggy/Documents/BrainLab/myopro_merit/data/emg-nirs-eeg/c2795tdvg/Session01/', ...
+% 	'20221107_0002.vhdr')
 %dat=load('C:\Grants\AhlamCDA2\ResubmissionJune2022\ResubmissionDec2022\Data\REdownload\c2795tdvg\Session01\0002.mat');
 %savepath='C:\Grants\AhlamCDA2\ResubmissionJune2022\ResubmissionDec2022\Data\REdownload\c2795tdvg\Session01\0002_processedCompare'; % I Output path
+% savepath = '/Users/peggy/Documents/BrainLab/myopro_merit/analysis/eeg/c2795/Session01/';
+
 
 Setup.NSampRate=dat.EEG.srate/Setup.Decimation;
+% for c2795
 Setup.C3=5; % These I got from the loaded  mat file and just manually typed them here
 Setup.C4=15;
-Setup.Cz=14;
+Setup.Cz=14; 
+
+% for s3103 week01
+Setup.C3 = 5;
+Setup.C4 = 14;
+Setup.Cz = 13;
+
 Setup.NFFT=10;%power of 2 defining the number of samples to include in FFT
 
 %% Defining bands of interest
@@ -90,6 +105,35 @@ cutOffHigh = Setup.EEGcutOffHighHz/(Setup.NSampRate/2);
 [B,A] = butter(5,[cutOffLow,cutOffHigh],'bandpass' );
 for ch=1:numEEGSignals%% filter and plot a sparse version of the voltage traces so not too much memory is used on the plot
     RawEEGNDC(ch,:) = filtfilt(B,A,double(RawEEG(ch,:)));%bandpass filter signal without adding delay
+	if ch==1
+		figure
+		subplot(2,1,1)
+		plot(RawDataTimeAxis, RawEEG(ch,:))
+		ylabel('raw data')
+		title('eeg chan 1')
+
+		subplot(2,1,2)
+		plot(RawDataTimeAxis, RawEEGNDC(ch,:))
+		ylabel('bandpass filtered')
+		xlabel('Time')
+
+		figure
+		subplot(3,1,1)
+		plot(RawDataTimeAxis, RawEEG(ch,:))
+		ylabel('raw data')
+		title('eeg chan 1')
+
+		hp = hpfilt(double(RawEEG(ch,:))', 5, Setup.EEGcutOffLowHz, Setup.NSampRate);
+		subplot(3,1,2)
+		plot(RawDataTimeAxis, hp)
+		ylabel('high pass filter')
+
+		lp = lpfilt(hp, 5, Setup.EEGcutOffHighHz, Setup.NSampRate);
+		subplot(3,1,3)
+		plot(RawDataTimeAxis, lp)
+		ylabel('high then low pass filter')
+		xlabel('Time')
+	end
     if Setup.Hz60NotchFlag
         RawEEGNDC(ch,:) = filtfilt(d,double(RawEEGNDC(ch,:)));%bandpass filter signal without adding delay
     end
