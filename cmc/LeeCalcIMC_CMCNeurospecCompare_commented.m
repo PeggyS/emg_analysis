@@ -17,7 +17,9 @@ Setup.Hz60NotchFlag=1;
 % s3103 week01 0007 = isometric extension
 % dat=load('C:\Grants\AhlamCDA2\ResubmissionJune2022\ResubmissionDec2022\Data\REdownload\s3103uemp\week01\0007.mat');
 % dat = load('/Users/peggy/Documents/BrainLab/myopro_merit/analysis/eeg/s3103uemp/week01/0007.mat')
-[dat.EEG, com] = pop_loadbv('/Users/peggy/Documents/BrainLab/myopro_merit/data/emg-nirs-eeg/s3103uemp/week01', ...
+% [dat.EEG, com] = pop_loadbv('/Users/peggy/Documents/BrainLab/myopro_merit/data/emg-nirs-eeg/s3103uemp/week01', ...
+% 	'20221116_0007.vhdr');
+[dat.EEG, com] = pop_loadbv('/Users/peggy/Library/CloudStorage/Box-Box/myopro_merit/data/emg-nirs-eeg/s3103uemp/week01', ...
 	'20221116_0007.vhdr');
 % savepath='C:\Grants\AhlamCDA2\ResubmissionJune2022\ResubmissionDec2022\Data\REdownload\s3103uemp\week01\0007_processedCompare';
 
