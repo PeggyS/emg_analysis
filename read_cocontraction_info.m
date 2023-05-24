@@ -39,11 +39,14 @@ if analysis_path ~= 0
 			match_struct = regexp(app.FileNameLabel.Text, '_(?<num>\d{4})\.vhdr', 'names');
 			if ~isempty(match_struct)
 				file_num_str = match_struct.num;
-				if contains(file_name, ['_' file_num_str '_extend_'])
+% 				if contains(file_name, ['_' file_num_str '_extend_']) FIXME
+% 				- commented out this statment 2023-05-1-24. It wasn't
+% 				reading in correctly
+% 				'isometric_tricep_concontraction_info.txt  files correctly
 					% it's a match
 					match_found = true;
 					break;
-				end
+% 				end
 			end
 		end
 		if match_found == false

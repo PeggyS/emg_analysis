@@ -10,8 +10,7 @@ f1S=figure(1)
 subplot(3,2,1)
 plot(S.Cont.f_bt_c(S.Setup.iFFTmatrix(1):S.Setup.iFFTmatrix(end),1),S.Cont.f_bt_c(S.Setup.iFFTmatrix(1):S.Setup.iFFTmatrix(end),4),'k-')
 hold on
-plot([S.Cont.f_bt_c(S.Setup.iFFTmatrix(1),1) S.Cont.f_bt_c(S.Setup.iFFTmatrix(end),1)]
-,[sig sig],'k:')
+plot([S.Cont.f_bt_c(S.Setup.iFFTmatrix(1),1) S.Cont.f_bt_c(S.Setup.iFFTmatrix(end),1)],[sig sig],'k:')
 ylabel('IMC Bi/Tri')
 axis ([6 55 0 .6])
 
