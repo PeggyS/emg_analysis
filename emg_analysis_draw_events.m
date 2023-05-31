@@ -7,15 +7,25 @@ function emg_analysis_draw_events(app)
 % 	delete(h_lines)
 % end
 
+% delete bend count and times
+delete(app.UIAxes_elbow_angle.Children);
+
+
+bend_cnt = 0;
+extend_cnt = 0;
+
 for e_cnt = 1:length(app.emg_data.event)
+	time = app.emg_data.event(e_cnt).time;
 	event_code = app.emg_data.event(e_cnt).code;
 	switch lower(event_code)
 		case 'move'
 			event_color = [0 0 0.9];
 		case 'bend'
 			event_color = [0 0 0.9];
+			bend_cnt = bend_cnt + 1;
 		case 'extend'
-			event_color = [0 0.9 0.3]; % green
+			event_color = [0 0.7 0]; % green
+			extend_cnt = extend_cnt + 1;
 % 			event_color = [0 0 0.9];
 		case {'relax' 'rest'}
 			event_color = [0.8 0 0];
@@ -24,6 +34,7 @@ for e_cnt = 1:length(app.emg_data.event)
 			event_color = [0.2 0.7 0.7]; % dark cyan
 		case 'viconstart'
 			event_color = [0.2 0.7 0.2];
+			v_start = time;
 		case 'viconstop'
 			event_color = [0.9 0.2 0.2];
 		otherwise
@@ -32,7 +43,7 @@ for e_cnt = 1:length(app.emg_data.event)
 	% line in each axes 
 	h = []; % variable length vector to hold the line handles in order to link their properties
 
-	time = app.emg_data.event(e_cnt).time;
+	
 	h(1) = line(app.UIAxes_bicep,  [time time], app.UIAxes_bicep.YLim, 'Color', event_color, ...
 		'LineWidth', 2, ...
 		'Tag', ['line_bicep_ax_event' num2str(e_cnt)], 'Visible', 'off');
@@ -47,6 +58,16 @@ for e_cnt = 1:length(app.emg_data.event)
 		h(4) = line(app.UIAxes_elbow_angle,  [time time], [-180 180], 'Color', event_color, ...
 		'LineWidth', 2, ...
 		'Tag', ['line_elbow_angle_ax_event' num2str(e_cnt)]);
+
+		if contains(lower(event_code), 'bend')
+			msg = sprintf('b%d: %g', bend_cnt, round(time-v_start));
+			text(app.UIAxes_elbow_angle,  time+2, 0, msg, 'Color', event_color)
+		end
+		if contains(lower(event_code), 'extend')
+			msg = sprintf('e%d: %g', extend_cnt, round(time-v_start));
+			text(app.UIAxes_elbow_angle,  time+2, 0, msg, 'Color', event_color)
+		end
+
 		h(5) = line(app.UIAxes_elbow_velocity,  [time time], [-10 10], 'Color', event_color, ...
 		'LineWidth', 2, ...
 		'Tag', ['line_elbow_velocity_ax_event' num2str(e_cnt)]);
