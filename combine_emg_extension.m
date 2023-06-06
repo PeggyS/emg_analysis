@@ -1,4 +1,4 @@
-function [cc_tbl, coh_tbl] = combine_emg_isometric(top_folder, aff_side_file)
+function [cc_tbl, coh_tbl] = combine_emg_extension(top_folder, aff_side_file)
 
 
 cc_tbl = table(); % co-contraction table
@@ -34,26 +34,27 @@ for f_cnt = 1:length(f_list)
 			if ~isempty(tmp)
 				week = tmp{1};
 
-				% look for files: *._isometric_tricep_cocontraction_info.txt
+				% look for files: *._extend_cocontraction_info.txt or
+				% *._bend_extend_cocontration_info.txt
 				% and *.coherence.txt
 				week_folder = fullfile(subj_folder, week);
 				fc_list = dir(week_folder);
 				for fc_cnt = 1:length(fc_list)
 					tmp = regexp(fc_list(fc_cnt).name, ...
-						'((isometric_tricep_cocontraction_info)|(coherence))\.txt', ...
+						'_extend_cocontraction_info\.txt', ...
 						'match');
 					if ~isempty(tmp)
 						file_name = fullfile(week_folder, fc_list(fc_cnt).name);
-						f_num = regexp(fc_list(fc_cnt).name, '_(?<f_num>\d{4})_', 'names');
+						f_num = regexp(fc_list(fc_cnt).name, '_(?<f_num>\d{4})_()', 'names');
 						file_type = tmp{1};
 						% found a file, read its info and add to table
 						switch file_type
-							case 'isometric_tricep_cocontraction_info.txt'
+							case '_extend_cocontraction_info.txt'
 								cc_info = comb_read_cocontraction_info(file_name);
 								cc_tbl = add_cc_info_to_table(cc_tbl, cc_info, subj, week, f_num.f_num);
-							case 'coherence.txt'
-								coh_info = comb_read_coherence_info(file_name);
-								coh_tbl = add_coh_info_to_table(coh_tbl, coh_info, subj, week, f_num.f_num, side);
+% 							case 'coherence.txt'
+% 								coh_info = comb_read_coherence_info(file_name);
+% 								coh_tbl = add_coh_info_to_table(coh_tbl, coh_info, subj, week, f_num.f_num, side);
 						end
 					end
 				end
@@ -66,12 +67,12 @@ end
 % combine coh_tbl and cc_tbl 
 
 % save
-fname = [top_folder filesep 'isometric_ext_cci_' datestr(now, 'yyyymmdd') '.csv']; %#ok<TNOW1,DATST> 
+fname = [top_folder filesep 'extension_movement_cci_' datestr(now, 'yyyymmdd') '.csv']; %#ok<TNOW1,DATST> 
 writetable(cc_tbl, fname);
 
 
-fname = [top_folder filesep 'isometric_ext_cmc_imc_' datestr(now, 'yyyymmdd') '.csv']; %#ok<TNOW1,DATST> 
-writetable(coh_tbl, fname);
+% fname = [top_folder filesep 'isometric_ext_cmc_imc_' datestr(now, 'yyyymmdd') '.csv']; %#ok<TNOW1,DATST> 
+% writetable(coh_tbl, fname);
 
 return
 end
@@ -95,16 +96,7 @@ for f_cnt = 1:length(fld_names)
 	new_field = old_field;
 	new_field = strrep(new_field, ipsi_fld_prefix, 'c_ipsi');
 	new_field = strrep(new_field, contra_fld_prefix, 'c_contra');
-	
-
-	% change areas to means
-	if contains(new_field, '_alpha_')
-		band_width = 9;
-	else 
-		band_width = 19;
-	end
-	new_field = strrep(new_field, 'area', 'mean');
-	new_struct.(new_field) = coh_info.(old_field)/band_width;
+	new_struct.(new_field) = coh_info.(old_field);
 end
 
 tbl = struct2table(new_struct);
